@@ -12,13 +12,13 @@ Test: Show how to add a web browser
 
 
  - ## Checklist
-- [] update [application.properties](/src/main/resources/application.properties)
+- [ ] update [application.properties](/src/main/resources/application.properties)
 <!-- how to put in code blocks us ```-->
 ```
 # Where are jsp files? HERE!
 spring.mvc.view.prefix=/WEB-INF/
 # Data Persistence
-#<!-- after the '/' is <<WHATEVER_YOUR_SCHEMA_NAME>> -->
+#<!-- after the '/' is <<WHATEVER_YOUR_SCHEMA_NAME>> that you created in MySQL Workbench -->
 spring.datasource.url=jdbc:mysql://localhost:3306/books_crud_pt2
 spring.datasource.username=root
 spring.datasource.password=rootroot
@@ -27,8 +27,9 @@ spring.jpa.hibernate.ddl-auto=update
 spring.mvc.hiddenmethod.filter.enabled=true
 ```
 
+
 - ### After adding this to my pom fie it will ask if you want to update -> always say yes
-- [] [pom.xml](pom.xml)
+- [ ] [pom.xml](pom.xml)
 ```
 		<!-- 
 		& add the two dependency files here 
@@ -87,7 +88,8 @@ spring.mvc.hiddenmethod.filter.enabled=true
 		</dependency>
 ```
 
-- [] add [index.jsp](src/main/webapp/WEB-INF/index.jsp)
+
+- [ ] add [index.jsp](src/main/webapp/WEB-INF/index.jsp)
 <!-- 
 when you make this 
     -> can click it and vs code will say the file is not there 
@@ -120,11 +122,38 @@ when you make this
 </html>
 
 ```
+- [ ] add a schema in MySQL Workbench
+
+
 <!-- 
 -> Always generate the MainController by hand 
 -> packages will differ for each directory 
 -> this will make sure the file is in the right place
 -->
-- [] add controller [MainController.java](src/main/java/com/rochelle/books_crud_pt2/controllers/MainController.java)
+- [ ] add controller [MainController.java](src/main/java/com/rochelle/books_crud_pt2/controllers/MainController.java)
+
+
+- add this to the MainController.java
+```
+//MainController.java
+    @Autowired BookService bookservice;
+```
+
+- To connect service with controller
+- [ ] add `@Entity` and `@Table` `@Id` `@GeneratedValue` to the [model](src/main/java/com/rochelle/books_crud_pt2/models/Book.java)
+
+<!-- need to add a service folder and file with whatever name you want -->
+- [ ] add a [WhateverService.java](src/main/java/com/rochelle/books_crud_pt2/services/BookService.java)
+
+<!-- add service annotation -->
+- add 
+```
+//BookService.java
+@Autowired BookRepository bookRepository;
+```
+
+<!-- need to add a repository folder and file with whatever name you want -->
+- To connect service with repository
+- [ ] add a [WhateverRepository.java](src/main/java/com/rochelle/books_crud_pt2/repositories/BookRepository.java)
 
 # BooksCRUD_Pt2

@@ -42,6 +42,7 @@ public class Book {
     // ~ inorder to be able to access these attributes and in order to make new books ~
     // -> need constructor
     // -> generate an empty constructor
+    // -> needed to be a Java Bean -> POJO that spring uses to keep tracl of everything
     public Book() {
     }
 
@@ -65,6 +66,7 @@ public class Book {
     -> spring will be able to use it w/o any other set up or config from us -> will be able to access our programs 
     ~ Now can go into controller ~
     */
+    // needed to be a Java Been 
     public String getTitle() {
         return this.title;
     }

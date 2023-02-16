@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 import com.rochelle.books_crud_pt2.models.Book;
 import com.rochelle.books_crud_pt2.repositories.BookRepository;
 
-// designate this as a @Service
+// designate this as a @Service -> contains all our business logic
 // the BookService uses the repository
+// this makes a file a service in spring
 @Service
 public class BookService {
     // connection to our Repository
