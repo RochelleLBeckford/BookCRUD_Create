@@ -23,6 +23,7 @@ public class BookService {
     -> once connected to the BookRepository -> now have access to the BookRepository inside of our service
     -> now have access to this fineAll method 
     -> return a list of all my books 
+    -> allows us to use the magic of the ORM
     */
     public List<Book> allBooks() {
         return bookRepository.findAll();
