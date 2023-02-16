@@ -10,7 +10,9 @@ import javax.persistence.Table;
 // 4 lines of codes saves us from doing all that SQL or even the ERD Diagram
 
 //? Book.java is only 1 aspect of my model -> 2 other aspects/ sections of the model
-// Actual connection to the database is -> repositories 
+// Actual connection to the database is -> we have different layers -> repository -> services -> controller
+// repositories folder -> BookRepository.java file will be an interface
+// services -> BookService.java file will be the connection
 
 /* 
 ~ @Entity is an ORM [object relational mapper]-> will write the SQL for me ~

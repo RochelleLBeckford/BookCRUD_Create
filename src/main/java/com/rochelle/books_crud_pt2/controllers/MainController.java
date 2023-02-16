@@ -3,8 +3,12 @@ package com.rochelle.books_crud_pt2.controllers;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.rochelle.books_crud_pt2.models.Book;
+import com.rochelle.books_crud_pt2.services.BookService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +23,16 @@ public class MainController {
     // this will be a list of all the books
     // import ArrayList -> import java.util.ArrayList;
             // import POJO judt made -> import com.rochelle.books.models.Book;
-    ArrayList<Book> books = new ArrayList<>();
+    //? instead of storing books in an arraylist -> connect to my service
+    
+    // ArrayList<Book> books = new ArrayList<>();
     // now when create book still setting it to session but will also create an instance of that book -> create a book object 
+    
+    // the last step is the controller and it uses the service
+    // now will get all my books from my DB -> go to DB and create some 
+    // now DB has some books in it -> use my service to access my books 
+    @Autowired BookService bookService;
+
 
     //CRUD -> create, read, update, delete
     //& CREATE &
@@ -53,21 +65,21 @@ public class MainController {
     ) {
         // create a new instance of the class
                         // pass in all the attributes for the book
-        Book book = new Book(title, author, pages, description);
-        // System.out.println(title);
-        // -> print out the book it gets me
-        // System.out.println(book);
-        // -> see the title of the book 
-        System.out.println(book.getTitle());
-        //~ now want to add session ~
-            // -> import HttpSession
-            // -> then set session to all attributes -> session.setAttributes
-        // -> add the books to my array -> books is going to be an array of all the books they give me
-        books.add(book);
-        session.setAttribute("title", title);
-        session.setAttribute("author", author);
-        session.setAttribute("pages", pages);
-        session.setAttribute("description", description);
+        // Book book = new Book(title, author, pages, description);
+        // // System.out.println(title);
+        // // -> print out the book it gets me
+        // // System.out.println(book);
+        // // -> see the title of the book 
+        // System.out.println(book.getTitle());
+        // //~ now want to add session ~
+        //     // -> import HttpSession
+        //     // -> then set session to all attributes -> session.setAttributes
+        // // -> add the books to my array -> books is going to be an array of all the books they give me
+        // books.add(book);
+        // session.setAttribute("title", title);
+        // session.setAttribute("author", author);
+        // session.setAttribute("pages", pages);
+        // session.setAttribute("description", description);
         return "redirect:/";
     }
 
@@ -88,19 +100,26 @@ public class MainController {
     @RequestMapping("/")
     public String index(Model model) {
         // -> pass down books and call it books
+        // to get all my books -> say it is going to be a list of books
+        List<Book> books = bookService.allBooks();
+        // to see what we get
+        System.out.println(books); // books i created in the DB show in ther terminal 
+        // to get them on the frontend -> from the controller to the view
         model.addAttribute("books", books);
         return "index.jsp";
     }
 
 
     //& READ ONE & 
-    // -> when do this show.jsp should have access to one book at the specified index
-    // -> have one book object that is being passed down to jsp
-    // attributes can be individual strings, they can be books, they can be whatever you want to pass down
+    /* 
+    -> when do this show.jsp should have access to one book at the specified index
+    -> have one book object that is being passed down to jsp
+    attributes can be individual strings, they can be books, they can be whatever you want to pass down
+    */
     @RequestMapping("/books/1")
     public String show(Model model) {
-        model.addAttribute("books", books.get(1));
-        model.addAttribute("books", books);
+        // model.addAttribute("books", books.get(1));
+        // model.addAttribute("books", books);
         return "show.jsp";
     }
     
