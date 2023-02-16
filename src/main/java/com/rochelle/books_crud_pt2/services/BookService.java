@@ -11,9 +11,11 @@ import com.rochelle.books_crud_pt2.repositories.BookRepository;
 // designate this as a @Service -> contains all our business logic
 // the BookService uses the repository
 // this makes a file a service in spring
+// how to tell the service about the bookrepsitory that it can use -> autowired
 @Service
 public class BookService {
-    // connection to our Repository
+    // the connection to our Repository and the service
+    // allows spring to access all the data in out bookrepository
     @Autowired BookRepository bookRepository;
     //^ CREATE
 

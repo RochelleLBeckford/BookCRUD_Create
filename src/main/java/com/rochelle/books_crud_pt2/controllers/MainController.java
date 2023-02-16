@@ -31,6 +31,7 @@ public class MainController {
     // the last step is the controller and it uses the service
     // now will get all my books from my DB -> go to DB and create some 
     // now DB has some books in it -> use my service to access my books 
+    // connects the service to the controller
     @Autowired BookService bookService;
 
 
