@@ -18,6 +18,13 @@ public class BookService {
     // allows spring to access all the data in out bookrepository
     @Autowired BookRepository bookRepository;
     //^ CREATE
+    // want to pass in a book -> create a varibale in java have to say what it is going to be 
+    // book is a param 
+    // Book is saying that this param is going to be a book object
+    public void createBook(Book book) {
+        // taking in whatever param gets passed in then pass it on to save
+        bookRepository.save(book);
+    }
 
     //^ READ ALL
     /* 

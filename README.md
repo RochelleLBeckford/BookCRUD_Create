@@ -3,7 +3,7 @@
 <!-- - this is a bullet -->
 
 <!-- ## this is a sub heading -->
-### Create an updated Books Demo with Session/CRUD
+### Create an updated Books CRUD implementing Update and Delete Functionality
 
 
 <!-- 
@@ -139,8 +139,9 @@ when you make this
     @Autowired BookService bookservice;
 ```
 
-- To connect service with controller
-- [ ] add `@Entity` and `@Table` `@Id` `@GeneratedValue` to the [model](src/main/java/com/rochelle/books_crud_pt2/models/Book.java)
+- add model [Whatever.java](src/main/java/com/rochelle/books_crud_pt2/models/Book.java)
+    - To connect service with controller
+        - [ ] add `@Entity` and `@Table` `@Id` `@GeneratedValue` to the model
 
 <!-- need to add a service folder and file with whatever name you want -->
 - [ ] add a [WhateverService.java](src/main/java/com/rochelle/books_crud_pt2/services/BookService.java)

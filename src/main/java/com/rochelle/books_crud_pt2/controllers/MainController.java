@@ -1,8 +1,8 @@
 package com.rochelle.books_crud_pt2.controllers;
 
-import javax.servlet.http.HttpSession;
+// import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import com.rochelle.books_crud_pt2.models.Book;
@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
 // to make this a controller need the @Controller anotation
+// all the routes are handled by the controller 
 @Controller
 public class MainController {
     // ~ Now can go into controller and do this for now b/c do not have databases yet ~
@@ -42,10 +44,18 @@ public class MainController {
     -> one for the submission 
     -> one for the redirect  
     */
+    
     @RequestMapping("/books/new") 
-    public String newBook(){
+    // if do this will have to modify new.jsp
+    public String newBook(@ModelAttribute("book")Book book){
         return "new.jsp";
     } 
+    
+    //? Instead of taking RequestParams will pass in actual book 
+    // the form will be filled out
+    // spring will make the book for us 
+    // then send it back to the controller 
+    // ~ need to use the @ModelAttribute in line 50 to do this 
 
     // @RequestMapping(value = "/books", method=RequestMethod.POST)
     // public String createBook() {
@@ -54,33 +64,35 @@ public class MainController {
     //? Can change from RequestMapping to PostMapping which is a shorter method -> less to rememeber
     // it is the same as the above
     // this is the route that handles my book
-    @PostMapping(value = "/books")
+    @PostMapping("/books")
     public String createBook(
         //~ when go to form and fill out book, how to access data ~
         // -> now have access to this data coming into my form
-        @RequestParam("title") String title,
-        @RequestParam("author") String author,
-        @RequestParam("pages") Integer pages,
-        @RequestParam("description") String description,
-        HttpSession session
+        // @RequestParam("title") String title,
+        // @RequestParam("author") String author,
+        // @RequestParam("pages") Integer pages,
+        // @RequestParam("description") String description,
+        // HttpSession session
+        
+        /* 
+        ~ this is much cleaner
+        -> set up the ModelAttribute 
+        -> pass in the empty book, once it gets to the new.jsp 
+        -> it gives the form a book to work with -> makes book on the fly 
+        -> once get back to controller 
+        -> pass it to our book service
+        
+        */
+        @ModelAttribute("book")Book book
     ) {
-        // create a new instance of the class
-                        // pass in all the attributes for the book
-        // Book book = new Book(title, author, pages, description);
-        // // System.out.println(title);
-        // // -> print out the book it gets me
-        // // System.out.println(book);
-        // // -> see the title of the book 
-        // System.out.println(book.getTitle());
-        // //~ now want to add session ~
-        //     // -> import HttpSession
-        //     // -> then set session to all attributes -> session.setAttributes
-        // // -> add the books to my array -> books is going to be an array of all the books they give me
-        // books.add(book);
-        // session.setAttribute("title", title);
-        // session.setAttribute("author", author);
-        // session.setAttribute("pages", pages);
-        // session.setAttribute("description", description);
+        // when fill out the form -> get all this stuff that comes in on the form
+        // make a book -> pass it on to my service -> service then pass it on to repo -> repo then puts it in my database
+        // Book newBook = new Book(title, author, pages, description);
+        // in the service making this method
+        // invoke the method here -> arguement is newBook -> book instanced
+        // bookService.createBook(newBook);
+        // can pass in the book object that i get from the form
+        bookService.createBook(book);
         return "redirect:/";
     }
 

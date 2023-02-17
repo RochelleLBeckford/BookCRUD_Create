@@ -22,11 +22,10 @@
     <div class="container d-flex justify-content-center border border-5 mt-5">
         <!-- <c:out value="${name}" ></c:out> -->
         <!-- Survey part -> Form -->
-        <card>
-            <card-body>
-                <h1>Add a Book</h1>
-
-                <!-- 
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">Add a Book</h1>
+                <!--                 
                     -> will send to where ever declared as action key
                     -> must create that route
                 -->
@@ -48,14 +47,47 @@
 
                     <div>
                         <label>Description:</label>
-                        <!-- <input type="textera" name="description"> -->
+                        <input type="textera" name="description"> 
                         <textarea name="description" class="form-control" id="description" cols="10" rows="3"></textarea>
                     </div>
 
                     <input type="submit" value="Add a New Book">
                 </form>
-            </card-body>
-        </card>
+            </div>
+        </div class="card">
+
+        <div class="card">
+            <div class="card-body">
+                <!-- ~to use the model attribute
+                    -> form:form tags
+                    -> built into jsp
+                    -> prepopulate forms when editing
+                    -> access the actual object itself when creating an instance
+                    -> leveraging the power of jsp and jpa to be able to add forms using the sprinf framework resources we have
+                -->
+                <h2 class="text-center">New and Improved Form</h2>
+                <form:form action="/books" method="post" modelAttribute="book">
+                    <div class="form-control">
+                        <form:label path="title">Title:</form:label>
+                        <form:input path="title"></form:input>
+                    </div>
+                    <div class="form-control">
+                        <form:label path="author">Author:</form:label>
+                        <form:input path="author"></form:input>
+                    </div>
+                    <div class="form-control">
+                        <form:label path="pages">Number of Pages:</form:label>
+                        <form:input path="pages"></form:input>
+                    </div>
+                    <div class="form-control">
+                        <form:label path="description">Description:</form:label>
+                        <form:input path="description"></form:input>
+                    </div>
+                    <input type="submit" value="Add a New Book">
+                </form:form>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
