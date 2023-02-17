@@ -22,14 +22,14 @@
     <div class="container d-flex justify-content-center border border-5 mt-5">
         <!-- <c:out value="${name}" ></c:out> -->
         <!-- Survey part -> Form -->
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
-                <h1 class="text-center">Add a Book</h1>
+                <h1 class="text-center">Add a Book</h1> -->
                 <!--                 
                     -> will send to where ever declared as action key
                     -> must create that route
                 -->
-                <form action="/books" method="POST">
+                <!-- <form action="/books" method="POST">
                     <div>
                         <label>Title:</label>
                         <input type="text" class="form-control" name="title">
@@ -54,7 +54,7 @@
                     <input type="submit" value="Add a New Book">
                 </form>
             </div>
-        </div class="card">
+        </div class="card"> -->
 
         <div class="card">
             <div class="card-body">
@@ -65,8 +65,10 @@
                     -> access the actual object itself when creating an instance
                     -> leveraging the power of jsp and jpa to be able to add forms using the sprinf framework resources we have
                 -->
+                <h1>Edit a Book</h1>
                 <h2 class="text-center">New and Improved Form</h2>
-                <form:form action="/books" method="post" modelAttribute="book">
+                <form:form action="/books/${book.id}" method="post" modelAttribute="book">
+                    <input type="hidden" name="_method" value="put">
                     <div class="form-control">
                         <form:label path="title">Title:</form:label>
                         <form:input path="title"></form:input>
@@ -83,7 +85,7 @@
                         <form:label path="description">Description:</form:label>
                         <form:input path="description"></form:input>
                     </div>
-                    <input class="btn btn-primary" type="submit" value="Add a New Book">
+                    <input class="btn btn-primary" type="submit" value="Edit Book">
                 </form:form>
             </div>
         </div>

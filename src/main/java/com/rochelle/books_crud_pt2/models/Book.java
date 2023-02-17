@@ -37,6 +37,8 @@ public class Book {
     private String title;
     private String author;
     private Integer pages;
+
+    
     private String description;
 
     // ~ inorder to be able to access these attributes and in order to make new books ~
@@ -67,6 +69,16 @@ public class Book {
     ~ Now can go into controller ~
     */
     // needed to be a Java Been 
+    // added these id getter and setters so can access private Long id -> now need to create a route for this 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
     public String getTitle() {
         return this.title;
     }

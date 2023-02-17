@@ -28,6 +28,8 @@
                     <th>Author</th>
                     <th>Pages</th>
                     <th>Description</th>
+                    <!-- these are going to be my actions -> edit & delete -->
+                    <th>Actions</th>
                 </tr>
                     <!-- the list is working but now need to loop over it -->
                     <!-- <c:out value="${books}"/> -->
@@ -41,11 +43,16 @@
                         -> var is the variable for iteration -> the variable of iteration can be anything but the items have to be named after the array 
                         -> items is the artray name 
                         -> naming variable conventions -> want someone after you to look at your code and understand what you were trying to do 
+                        -> make title an <a> tag so when click it all the info for that book will show 
                     -->
                     <c:forEach var="book" items="${books}">
                         <tr>
                             <td>
-                                ${book.title}
+                                <!-- 
+                                    ->want this to go to a page that will be /books/id 
+                                    -> iteration is books so book.id
+                                -->
+                                <a href="/books/${book.id}">${book.title}</a>
                             </td>
                             <td>
                                 ${book.author}
@@ -55,6 +62,25 @@
                             </td>
                             <td>
                                 ${book.description}
+                            </td>
+                            <!--  
+                                -> add'tl table data that will be my actions 
+                                -> need to make route where link will go 
+                                -> /books/edit/id
+                            -->
+                            <td class="d-flex gap-2">
+                                <a class="btn btn-primary" href="/books/edit/${book.id}">Edit</a>
+                                <!-- this is for the delete 
+                                    -> we have to include the hidden input which is why the <form> tag is needed
+                                    -> the work around if we want to use put
+                                    -> must follow the restful routing 
+                                    -> need to create a route for delete
+                                    -> must create a a method for delete
+                                -->
+                                <form action="/books/${book.id}" method="post">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>

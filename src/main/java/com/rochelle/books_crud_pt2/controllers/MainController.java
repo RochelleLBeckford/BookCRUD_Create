@@ -1,20 +1,24 @@
 package com.rochelle.books_crud_pt2.controllers;
-
+//? Pair Programming -> Dominic Basa
 // import javax.servlet.http.HttpSession;
 
 // import java.util.ArrayList;
 import java.util.List;
 
-import com.rochelle.books_crud_pt2.models.Book;
-import com.rochelle.books_crud_pt2.services.BookService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.rochelle.books_crud_pt2.models.Book;
+import com.rochelle.books_crud_pt2.services.BookService;
 
 
 // to make this a controller need the @Controller anotation
@@ -97,7 +101,6 @@ public class MainController {
     }
 
 
-    
     //? For read -> read one and read all 
     //& READ ALL & 
     // -> usually root of app is the read all 
@@ -128,17 +131,56 @@ public class MainController {
     -> when do this show.jsp should have access to one book at the specified index
     -> have one book object that is being passed down to jsp
     attributes can be individual strings, they can be books, they can be whatever you want to pass down
+    -> want to click on one of these titles and have it take me to a show page
+    -> can use request mapping or get mapping 
     */
-    @RequestMapping("/books/1")
-    public String show(Model model) {
-        // model.addAttribute("books", books.get(1));
-        // model.addAttribute("books", books);
+    @GetMapping("/books/{id}")
+    // -> now just need to call the method created in service to read one 
+    // get variables that live in the url -> Path Variable
+    public String show(@PathVariable("id")Long id, Model model) {
+        // need to get my book to my show page -> link data in my controller to my template -> Model model
+        Book book = bookService.getOneBook(id);
+        model.addAttribute("book", book);
         return "show.jsp";
     }
     
+
     //& UPDATE & 
-    
+    /* 
+    putting stuff on my DB -> 2 routes
+    -> one to display the form and one to handle the form 
+    */
+    @GetMapping("/books/edit/{id}")
+    public String edit(@PathVariable("id")Long id, Model model) {
+        // the edit page is often similar to the new page so copy it and change a few things
+        // samething as read one since need to view one book to edit it
+        // so can use that code as well
+        Book book = bookService.getOneBook(id);
+        model.addAttribute("book", book);
+        return "edit.jsp";
+    }
+
+    /* 
+    -> need to make a route for the edit
+    */
+
+    @PutMapping("/books/{id}")
+    // now need a service 
+    public String update(@ModelAttribute("book")Book book) {
+        bookService.updateBook(book);
+        return "redirect:/";
+    }
     
     //& DELETE & 
+    @DeleteMapping("/books/{id}")
+    // want to delete whatever book has this variable 
+    public String obliterateBook(@PathVariable("id")Long id) {
+        // need to find the book 1st that has that id
+        Book book = bookService.getOneBook(id);
+        // once have id -> delete book by id and pass in id
+        bookService.deleteBook(book);
+        // no where else to go after delete book -> no show page for that book
+        return "redirect:/";
+    }
 
 }
